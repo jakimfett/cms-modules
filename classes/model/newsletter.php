@@ -2,8 +2,8 @@
 
 class Model_Newsletter extends Model {
 
-    public function subscribe_user_by_email($email_address, $name = NULL) {
-        return DB::insert('newsletter', array('email', 'name'))->values(array($email_address, $name))->execute();
+    public function subscribe_user_by_email($email_address, $name = NULL, $ip = NULL, $city = NULL, $region = NULL) {
+        return DB::insert('newsletter', array('email', 'name', 'ip', 'city', 'region'))->values(array($email_address, $name, $ip, $city, $region))->execute();
     }
 
     public function check_duplicate_email($email_address) {

@@ -15,13 +15,36 @@ class Controller_Newsletter extends Controller
     {
         $email_address = $this->request->post('email');
         $name          = $this->request->post('name');
+        $ip_raw        = $this->request->post('ip');
+
         if (isset($email_address)) {
 
             $duplicate_check = $this->_model->check_duplicate_email($email_address);
             if ($duplicate_check->count() !== 0) {
                 die('DUPLICATE');
             } else {
-                $insert = $this->_model->subscribe_user_by_email($email_address, $name);
+                $city   = null;
+                $region = null;
+                if (!filter_var($ip_raw, FILTER_VALIDATE_IP) === false) {
+
+                    $details = json_decode(file_get_contents("http://ipinfo.io/{$ip_raw}/json"));
+
+                    if (isset($details->city)) {
+                        $city = $details->city;
+                    }
+                    if (isset($details->region)) {
+                        $region = $details->region;
+                    }
+                    /**
+                     * Note the conversion of the IP address using ip2long
+                     * @link http://daipratt.co.uk/mysql-store-ip-address/
+                     */
+                    $insert = $this->_model->subscribe_user_by_email($email_address, $name, ip2long($ip_raw), $city, $region);
+                } else {
+                    $insert = $this->_model->subscribe_user_by_email($email_address, $name);
+                }
+
+
                 if (isset($insert[0])) {
                     if ($insert[0] > 0) {
                         if ($this->_send_confirmation_email($email_address, $name)) {
@@ -94,8 +117,8 @@ class Controller_Newsletter extends Controller
 
     public function action_list()
     {
-        $view                         = View::factory('admin/newsletter-subscribers-list');
-        $view->subscribers            = $this->_model->get_all_subscribers();
+        $view              = View::factory('admin/newsletter-subscribers-list');
+        $view->subscribers = $this->_model->get_all_subscribers();
         $this->response->body($view);
     }
 

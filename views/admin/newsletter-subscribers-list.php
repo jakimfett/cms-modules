@@ -16,6 +16,7 @@
                         <th>Name</th> 
                         <th>Email</th>
                         <th>Date</th>
+                        <th colspan="2">Location</th>
                         <th>Opt Out</th>
                         <th>Note</th>
                     </tr>
@@ -25,6 +26,16 @@
                             <td id="name-<?= $subscriber['id']; ?>"><?= $subscriber['name']; ?></td>
                             <td id="email-<?= $subscriber['id']; ?>"><?= $subscriber['email']; ?></td>
                             <td id="date-<?= $subscriber['id']; ?>"><?= $subscriber['date']; ?></td>
+                            <td id="city-<?= $subscriber['id']; ?>">
+                                <?php if (isset($subscriber['city'])) : ?>
+                                    <?= $subscriber['city']; ?>
+                                <?php endif; ?>
+                            </td>
+                            <td id="region-<?= $subscriber['id']; ?>">
+                                <?php if (isset($subscriber['region'])) : ?>
+                                    <?= $subscriber['region']; ?>
+                                <?php endif; ?>
+                            </td>
                             <td id="opt-out-<?= $subscriber['id']; ?>"><?= $subscriber['opt_out']; ?></td>
                             <td id="note-<?= $subscriber['id']; ?>"><?= $subscriber['note']; ?></td> 
                         </tr>
