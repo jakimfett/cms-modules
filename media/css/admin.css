@@ -1,0 +1,12 @@
+/* 
+    Created on : May 18, 2015, 10:37:45 AM
+    Author     : kevins
+*/
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 15px;
+}

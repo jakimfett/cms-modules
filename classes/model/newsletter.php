@@ -34,5 +34,9 @@ class Model_Newsletter extends Model {
     public function get_opt_out($email_address) {
         return DB::select('opt_out')->from('newsletter')->where('email', '=', $email_address)->execute();
     }
+    
+    public function get_all_subscribers(){
+        return DB::select()->from('newsletter')->execute();
+    }
 
 }

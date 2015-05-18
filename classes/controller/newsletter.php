@@ -1,16 +1,20 @@
 <?php
 
-class Controller_Newsletter extends Controller {
+class Controller_Newsletter extends Controller
+{
 
     private $_model = NULL;
 
-    public function before() {
+    public function before()
+    {
+        parent::before();
         $this->_model = Model::factory("Newsletter");
     }
 
-    public function action_subscribe() {
+    public function action_subscribe()
+    {
         $email_address = $this->request->post('email');
-        $name = $this->request->post('name');
+        $name          = $this->request->post('name');
         if (isset($email_address)) {
 
             $duplicate_check = $this->_model->check_duplicate_email($email_address);
@@ -34,7 +38,8 @@ class Controller_Newsletter extends Controller {
         }
     }
 
-    public function action_unsubscribe() {
+    public function action_unsubscribe()
+    {
         $email_address = $this->request->post('email');
         if (isset($email_address)) {
             $duplicate_check = $this->_model->check_duplicate_email($email_address);
@@ -56,12 +61,13 @@ class Controller_Newsletter extends Controller {
         }
     }
 
-    private function _send_confirmation_email($email_address, $name = NULL) {
-        $email = Email::factory();
+    private function _send_confirmation_email($email_address, $name = NULL)
+    {
+        $email               = Email::factory();
         $email->subject("Newsletter Subscription Confirmation");
         $email->to($email_address);
         $email->from("noreply@solvethelabyrinth.com", "Labyrinth");
-        $view = View::factory('email/newsletter-subscribe-confirmation');
+        $view                = View::factory('email/newsletter-subscribe-confirmation');
         $view->email_address = $email_address;
 
         if (isset($name)) {
@@ -71,7 +77,8 @@ class Controller_Newsletter extends Controller {
         return $email->send();
     }
 
-    private function _send_admin_confirmation_email($email_address, $name = NULL) {
+    private function _send_admin_confirmation_email($email_address, $name = NULL)
+    {
         $admin_email = Email::factory();
 
         $admin_email->subject("Newsletter Subscription Confirmation");
@@ -83,6 +90,13 @@ class Controller_Newsletter extends Controller {
         }
         $admin_email->message($message, "text/html");
         return $admin_email->send();
+    }
+
+    public function action_list()
+    {
+        $view                         = View::factory('admin/newsletter-subscribers-list');
+        $view->subscribers            = $this->_model->get_all_subscribers();
+        $this->response->body($view);
     }
 
 }
