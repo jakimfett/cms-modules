@@ -105,7 +105,7 @@ class Controller_Newsletter extends Controller
         $admin_email = Email::factory();
 
         $admin_email->subject("Newsletter Subscription Confirmation");
-        $admin_email->to("jakimfett@gmail.com");
+        $admin_email->to("webmaster@solvethelabyrinth.com");
         $admin_email->from("noreply@solvethelabyrinth.com", "Labyrinth");
         $message = "Newsletter subscriber<br/>email: " . $email_address;
         if (isset($name)) {
