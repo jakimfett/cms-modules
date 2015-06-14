@@ -97,7 +97,7 @@ class Controller_Newsletter extends Controller
             $view->name = $name;
         }
         
-        $template = 'newsletter-subscribe-confirm';
+        $template = 'pages/newsletter-subscribe-confirm';
         
         $view->text = Post::dcache(Path::lookup($template)['id'], 'page', Config::load('pages'))->body;
         
