@@ -1,3 +1,11 @@
+<?php
+if (!isset($email_address)) {
+    $email_address = 'testing@solvethelabyrinth.com';    
+    if (!isset($name)) {
+        $name = 'student';
+    }
+}
+?>
 <!doctype html>
 <html lang="en">
     <head>
@@ -12,21 +20,12 @@
                         Dear <?= $name ?>,<br/>
                     <?php endif; ?>
                 <?php endif; ?>
-                I'm delighted to hear from you, it's been too long since we last spoke.<br/>
-                I haven't been feeling well lately, and we both know I'm not getting any younger.
-            </p>
-            <p>
-                Complaints about my failing health aside, I'm going to have to ask a favor of you. <br/>
-                I'll be sending additional instructions in a second letter, which should arrive in a week or two, if nothing goes awry.<br/>
-                This is a matter of utmost importance, and may very well be the most difficult and confusing thing you've encountered yet.<br/>
-
-            </p>
-            <p>
-                I have every confidence that you'll perform excellently, however.
-            </p>
-            <p>
-                Warmly,<br/>
-                Professor Grimalkin
+                <?php if (isset($text)) : ?>
+                    <?php echo $text; ?>
+                <?php else: ?>
+                    My deepest apologies, but it would appear that something has gone awry.<br/>
+                    Please contact the webmaster immediately.
+                <?php endif; ?>
             </p>
             <br/>
             <p>

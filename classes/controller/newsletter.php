@@ -1,28 +1,16 @@
 <?php
-/**
- * Controller class for the Newsletter module
- */
+
 class Controller_Newsletter extends Controller
 {
 
-    /**
-     * Global variable for Newsletter model
-     * @var type Model_Newsletter
-     */
     private $_model = NULL;
 
-    /**
-     * Execute when model is instantiated
-     */
     public function before()
     {
         parent::before();
         $this->_model = Model::factory("Newsletter");
     }
 
-    /**
-     * Newsletter subscribe page
-     */
     public function action_subscribe()
     {
         $email_address = $this->request->post('email');
@@ -73,9 +61,6 @@ class Controller_Newsletter extends Controller
         }
     }
 
-    /**
-     * Unsubscribe page 
-     */
     public function action_unsubscribe()
     {
         $email_address = $this->request->post('email');
@@ -99,12 +84,6 @@ class Controller_Newsletter extends Controller
         }
     }
 
-    /**
-     * Send a confirmation email to an email address
-     * @param type $email_address
-     * @param type $name
-     * @return type Boolean
-     */
     private function _send_confirmation_email($email_address, $name = NULL)
     {
         $email               = Email::factory();
@@ -117,16 +96,15 @@ class Controller_Newsletter extends Controller
         if (isset($name)) {
             $view->name = $name;
         }
+        
+        $template = 'newsletter-subscribe-confirm';
+        
+        $view->text = Post::dcache(Path::lookup($template)['id'], 'page', Config::load('pages'))->body;
+        
         $email->message($view, "text/html");
         return $email->send();
     }
 
-    /**
-     * Send notification to the administer about a subscriber
-     * @param type $email_address
-     * @param type $name
-     * @return type Boolean
-     */
     private function _send_admin_confirmation_email($email_address, $name = NULL)
     {
         $admin_email = Email::factory();
@@ -142,9 +120,6 @@ class Controller_Newsletter extends Controller
         return $admin_email->send();
     }
 
-    /**
-     * List all subscribers, without filter
-     */
     public function action_list()
     {
         $view              = View::factory('admin/newsletter-subscribers-list');
