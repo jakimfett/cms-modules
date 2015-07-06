@@ -1,8 +1,8 @@
 <?php
 if (!isset($email_address)) {
-    $email_address = 'testing@solvethelabyrinth.com';    
+    $email_address = 'testing@solvethelabyrinth.com';
     if (!isset($name)) {
-        $name = 'student';
+        $name = '{name}';
     }
 }
 ?>
