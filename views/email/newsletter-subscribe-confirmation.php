@@ -24,7 +24,7 @@ if (!isset($email_address)) {
                     <?php echo $text; ?>
                 <?php else: ?>
                     My deepest apologies, but it would appear that something has gone awry.<br/>
-                    Please contact the webmaster immediately.
+                    Please <a href="mailto:webmaster@solvethelabyrinth.com">contact the webmaster</a> immediately.
                 <?php endif; ?>
             </p>
             <br/>
