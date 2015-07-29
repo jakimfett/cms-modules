@@ -94,7 +94,7 @@ class Model_Newsletter extends Model
      */
     public function get_all_subscribers()
     {
-        return DB::select()->from('newsletter')->execute();
+        return DB::select()->from('newsletter')->orderBy('date', 'asc')->execute();
     }
 
 }
