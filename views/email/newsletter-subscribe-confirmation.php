@@ -1,9 +1,18 @@
 <?php
 if (!isset($email_address)) {
-    $email_address = 'ace5852+jakimfettTest@fastmail.fm';
+    $email_address = 'testing@solvethelabyrinth.co.uk';
     if (!isset($name)) {
         $name = '{name}';
     }
+}
+
+$exploded = explode('@', filter_var($email_address, FILTER_SANITIZE_EMAIL));
+$user     = '';
+$domain   = '';
+
+if (isset($exploded[0]) && isset($exploded[1])) {
+    $user   = $exploded[0];
+    $domain = str_replace('.', 'DOT', $exploded[1]);
 }
 ?>
 <!doctype html>
@@ -33,7 +42,7 @@ if (!isset($email_address)) {
                     <em>
                         This email is part of an immersive game by <a href="http://solvethelabyrinth.com/">Red Thread Studios, LLC</a>.
                         If you no longer wish to receive these emails, you may
-                        <a href="http://solvethelabyrinth.com/unsubscribe.php?optout=<?= urlencode($email_address); ?>">unsubscribe</a>
+                        <a href="http://solvethelabyrinth.com/unsubscribe/<?= urlencode($user); ?>/<?= urlencode($domain); ?>">unsubscribe</a>
                         at any time.
                     </em>
                 </small>
