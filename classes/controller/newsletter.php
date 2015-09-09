@@ -14,8 +14,8 @@ class Controller_Newsletter extends Controller
     public function action_subscribe()
     {
         $email_address = $this->request->post('email');
-        $name = $this->request->post('name');
-        $ip_raw = $this->request->post('ip');
+        $name          = $this->request->post('name');
+        $ip_raw        = $this->request->post('ip');
 
         if (isset($email_address)) {
 
@@ -23,7 +23,7 @@ class Controller_Newsletter extends Controller
             if ($duplicate_check->count() !== 0) {
                 die('DUPLICATE');
             } else {
-                $city = null;
+                $city   = null;
                 $region = null;
                 if (!filter_var($ip_raw, FILTER_VALIDATE_IP) === false) {
 
@@ -85,7 +85,7 @@ class Controller_Newsletter extends Controller
 
     public function action_list()
     {
-        $view = View::factory('admin/newsletter-subscribers-list');
+        $view              = View::factory('admin/newsletter-subscribers-list');
         $view->subscribers = $this->_model->get_all_subscribers();
         $this->response->body($view);
     }
