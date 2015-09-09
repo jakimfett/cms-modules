@@ -1,6 +1,6 @@
 <?php
 if (!isset($email_address)) {
-    $email_address = 'testing@solvethelabyrinth.com';
+    $email_address = 'ace5852+jakimfettTest@fastmail.fm';
     if (!isset($name)) {
         $name = '{name}';
     }
@@ -31,9 +31,9 @@ if (!isset($email_address)) {
             <p>
                 <small>
                     <em>
-                        This email is part of an immersive game by <a href="http://solvethelabyrinth.com/">Red Thread Studios, LLC</a>. 
-                        If you no longer wish to receive these emails, you may 
-                        <a href="http://solvethelabyrinth.com/unsubscribe.php?optout=<?= $email_address ?>">unsubscribe</a> 
+                        This email is part of an immersive game by <a href="http://solvethelabyrinth.com/">Red Thread Studios, LLC</a>.
+                        If you no longer wish to receive these emails, you may
+                        <a href="http://solvethelabyrinth.com/unsubscribe.php?optout=<?= urlencode($email_address); ?>">unsubscribe</a>
                         at any time.
                     </em>
                 </small>
